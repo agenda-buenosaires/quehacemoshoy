@@ -1,0 +1,666 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué hacemos hoy? - Agenda Cultural Buenos Aires</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='30' fill='%234E3629'/%3E%3Ctext x='32' y='41' font-family='Georgia, serif' font-size='26' font-weight='bold' fill='%23F8F5F0' text-anchor='middle'%3EBA%3C/text%3E%3C/svg%3E">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            brown: '#4E3629',
+                            brownDark: '#3A271D',
+                            brownLight: '#6E4E3C',
+                            cream: '#F8F5F0',
+                            beigeCard: '#EFECE6',
+                            pastelBlue: '#B4CBE3',
+                            pastelBlueHover: '#9FBBD7',
+                            softYellow: '#F3E8C9',
+                            softPink: '#E8D5C8',
+                            softGreen: '#D4E4D1',
+                            sand: '#D9C5B2'
+                        }
+                    },
+                    fontFamily: {
+                        serif: ['"Playfair Display"', 'serif'],
+                        sans: ['"Plus Jakarta Sans"', 'sans-serif']
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        html { scroll-behavior: smooth; }
+        body {
+            background-color: #F8F5F0;
+            color: #4E3629;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            overflow-x: hidden;
+        }
+        .bg-pattern {
+            background-color: #F8F5F0;
+            background-image: repeating-linear-gradient(90deg, rgba(78, 54, 41, 0.02) 0px, rgba(78, 54, 41, 0.02) 1px, transparent 1px, transparent 40px);
+        }
+        .folder-card {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        .folder-card:hover { transform: translateY(-5px); }
+        @keyframes marqueeScroll {
+            0% { transform: translateX(0%); }
+            100% { transform: translateX(-50%); }
+        }
+        .animate-marquee {
+            display: flex;
+            width: max-content;
+            animation: marqueeScroll 32s linear infinite;
+        }
+        .marquee-wrapper:hover .animate-marquee { animation-play-state: paused; }
+    </style>
+</head>
+<body class="bg-pattern min-h-screen flex flex-col justify-between">
+
+    <!-- BARRA DE NAVEGACIÓN -->
+    <header class="sticky top-0 z-40 bg-[#F8F5F0]/90 backdrop-blur-md border-b border-brand-sand/35 transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-full bg-brand-brown text-brand-cream flex items-center justify-center font-serif text-xl font-bold shadow-sm">
+                    BA
+                </div>
+                <div>
+                    <span class="font-serif text-xl md:text-2xl font-bold text-brand-brown tracking-wide">¿Qué hacemos hoy?</span>
+                    <span class="block text-[10px] tracking-widest uppercase text-brand-brownLight font-medium">Agenda Cultural Buenos Aires</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-10 pb-16">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+            <div class="lg:col-span-7 space-y-6 text-left">
+                <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-brand-pastelBlue/30 text-brand-brown text-xs font-semibold tracking-wider uppercase">
+                    <i class="fa-regular fa-compass"></i> Guía Completa de Buenos Aires
+                </div>
+                <h1 class="font-serif text-4xl sm:text-5xl lg:text-6xl font-bold text-brand-brown leading-tight">
+                    Descubrí la movida cultural de tu zona.
+                </h1>
+                <p class="text-base sm:text-lg text-brand-brownLight leading-relaxed max-w-2xl font-light">
+                    Tu mapa rápido de salidas gourmet, shows, ferias y fiestas populares en Zona Oeste, Zona Sur, Zona Norte y CABA. Elegí tu zona y salí a disfrutar.
+                </p>
+                <div class="flex flex-wrap gap-4 pt-2">
+                    <a href="#eventos" class="bg-brand-brown text-brand-cream px-7 py-3.5 rounded-full font-medium hover:bg-brand-brownLight transition shadow-md">
+                        Ver Agenda de Eventos
+                    </a>
+                </div>
+            </div>
+
+            <!-- Tarjeta Destacada -->
+            <div class="lg:col-span-5 relative flex justify-center">
+                <div class="relative w-full max-w-md bg-brand-pastelBlue/40 p-6 rounded-3xl border border-brand-pastelBlue shadow-lg transform rotate-1 transition hover:rotate-0">
+                    <div class="absolute -top-4 -right-2 bg-brand-cream border border-brand-brown text-brand-brown px-3 py-1 rounded-md text-xs font-serif font-bold shadow flex items-center gap-1">
+                        <i class="fa-solid fa-paperclip"></i> PRÓXIMO EVENTO
+                    </div>
+                    <div id="featuredCard" class="bg-brand-cream p-5 rounded-2xl shadow-sm border border-brand-sand/50 space-y-4">
+                        <p class="text-xs text-brand-brownLight">Cargando próximo evento...</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CINTA DE ZONAS EN MOVIMIENTO INTERACTIVA -->
+    <div class="marquee-wrapper bg-brand-brown text-brand-cream py-3.5 overflow-hidden text-xs uppercase tracking-widest font-serif border-y border-brand-sand">
+        <div class="animate-marquee flex gap-10">
+            <div class="flex gap-10 items-center">
+                <button type="button" onclick="selectZonaFromMarquee('Zona Oeste')" class="hover:text-brand-pastelBlue transition cursor-pointer underline-offset-4 hover:underline">
+                    ◆ Zona Oeste: Hurlingham, Morón, Ituzaingó, Castelar, Merlo, La Matanza, Tres de Febrero
+                </button>
+                <button type="button" onclick="selectZonaFromMarquee('Zona Sur')" class="hover:text-brand-pastelBlue transition cursor-pointer underline-offset-4 hover:underline">
+                    ◆ Zona Sur: Quilmes, Lanús, Banfield, Lomas de Zamora, Avellaneda, Adrogué, Tandil
+                </button>
+                <button type="button" onclick="selectZonaFromMarquee('Zona Norte')" class="hover:text-brand-pastelBlue transition cursor-pointer underline-offset-4 hover:underline">
+                    ◆ Zona Norte: Vicente López, San Isidro, Tigre, San Martín, Pilar
+                </button>
+                <button type="button" onclick="selectZonaFromMarquee('CABA')" class="hover:text-brand-pastelBlue transition cursor-pointer underline-offset-4 hover:underline">
+                    ◆ CABA: San Telmo, Palermo, Recoleta, Belgrano, Villa Crespo
+                </button>
+            </div>
+            <div class="flex gap-10 items-center" aria-hidden="true">
+                <button type="button" onclick="selectZonaFromMarquee('Zona Oeste')" class="hover:text-brand-pastelBlue transition cursor-pointer underline-offset-4 hover:underline">
+                    ◆ Zona Oeste: Hurlingham, Morón, Ituzaingó, Castelar, Merlo, La Matanza, Tres de Febrero
+                </button>
+                <button type="button" onclick="selectZonaFromMarquee('Zona Sur')" class="hover:text-brand-pastelBlue transition cursor-pointer underline-offset-4 hover:underline">
+                    ◆ Zona Sur: Quilmes, Lanús, Banfield, Lomas de Zamora, Avellaneda, Adrogué, Tandil
+                </button>
+                <button type="button" onclick="selectZonaFromMarquee('Zona Norte')" class="hover:text-brand-pastelBlue transition cursor-pointer underline-offset-4 hover:underline">
+                    ◆ Zona Norte: Vicente López, San Isidro, Tigre, San Martín, Pilar
+                </button>
+                <button type="button" onclick="selectZonaFromMarquee('CABA')" class="hover:text-brand-pastelBlue transition cursor-pointer underline-offset-4 hover:underline">
+                    ◆ CABA: San Telmo, Palermo, Recoleta, Belgrano, Villa Crespo
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SECCIÓN DE EVENTOS Y FILTROS -->
+    <section id="eventos" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div class="text-center max-w-2xl mx-auto mb-10">
+            <h2 class="font-serif text-3xl sm:text-4xl font-bold text-brand-brown italic">Cartelera Cultural</h2>
+            <p class="text-brand-brownLight text-sm mt-2">Ordenados cronológicamente del más próximo al más lejano. Filtrá por zona, localidad o categoría.</p>
+        </div>
+
+        <!-- PANEL DE FILTROS -->
+        <div class="bg-brand-beigeCard rounded-2xl p-6 mb-10 shadow-sm border border-brand-sand/40">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 items-center">
+                <div class="relative w-full">
+                    <i class="fa-solid fa-magnifying-glass absolute left-4 top-1/2 -translate-y-1/2 text-brand-brownLight text-sm"></i>
+                    <input type="text" id="searchInput" oninput="filterEvents()" placeholder="Buscar evento o lugar..." 
+                        class="w-full pl-10 pr-4 py-2.5 rounded-full bg-brand-cream text-brand-brown placeholder-brand-brownLight/60 text-xs focus:outline-none focus:ring-2 focus:ring-brand-brown border border-brand-sand/50">
+                </div>
+
+                <div class="w-full">
+                    <select id="zonaSelect" onchange="onZonaChange()" class="w-full bg-brand-cream text-brand-brown text-xs font-medium px-4 py-2.5 rounded-full border border-brand-sand/50 focus:outline-none focus:ring-2 focus:ring-brand-brown cursor-pointer">
+                        <option value="">Todas las Zonas</option>
+                        <option value="Zona Oeste">Zona Oeste</option>
+                        <option value="Zona Sur">Zona Sur</option>
+                        <option value="Zona Norte">Zona Norte</option>
+                        <option value="CABA">CABA</option>
+                    </select>
+                </div>
+
+                <div class="w-full">
+                    <select id="localidadSelect" onchange="filterEvents()" class="w-full bg-brand-cream text-brand-brown text-xs font-medium px-4 py-2.5 rounded-full border border-brand-sand/50 focus:outline-none focus:ring-2 focus:ring-brand-brown cursor-pointer">
+                        <option value="">Todas las localidades (A-Z)</option>
+                    </select>
+                </div>
+
+                <div class="w-full">
+                    <select id="categorySelect" onchange="filterEvents()" class="w-full bg-brand-cream text-brand-brown text-xs font-medium px-4 py-2.5 rounded-full border border-brand-sand/50 focus:outline-none focus:ring-2 focus:ring-brand-brown cursor-pointer">
+                        <option value="todas">Todas las Categorías</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONTENEDOR DE TARJETAS -->
+        <div id="eventsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
+
+        <!-- Estado Vacío -->
+        <div id="emptyState" class="hidden text-center py-16 bg-brand-beigeCard/50 rounded-3xl border border-brand-sand/40">
+            <i class="fa-regular fa-calendar-xmark text-4xl text-brand-brownLight mb-3"></i>
+            <h3 class="font-serif text-xl font-bold text-brand-brown">No encontramos eventos con esos filtros</h3>
+            <p class="text-xs text-brand-brownLight mt-1 mb-4">Probá cambiando la localidad, la zona o la categoría seleccionada.</p>
+            <button onclick="resetFilters()" class="bg-brand-brown text-brand-cream px-5 py-2.5 rounded-full text-xs font-medium hover:bg-brand-brownLight transition cursor-pointer">
+                Limpiar filtros
+            </button>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="bg-brand-beigeCard border-t border-brand-sand/50 py-10 mt-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row items-center justify-between gap-6">
+            <div class="flex items-center gap-3">
+                <div class="w-8 h-8 rounded-full bg-brand-brown text-brand-cream flex items-center justify-center font-serif text-sm font-bold">
+                    BA
+                </div>
+                <span class="font-serif text-lg font-bold text-brand-brown">¿Qué hacemos hoy?</span>
+            </div>
+
+            <div class="max-w-xl text-center md:text-left bg-brand-cream/80 px-4 py-3 rounded-xl border border-brand-sand/50">
+                <p class="text-[11px] leading-relaxed text-brand-brownLight">
+                    <strong class="text-brand-brown font-semibold"><i class="fa-solid fa-graduation-cap mr-1"></i> Sobre el proyecto:</strong> 
+                    Plataforma desarrollada con fines académicos para la recolección y estructuración de datos culturales en el marco de un Trabajo Práctico del curso de <strong>Inteligencia Artificial</strong> de la <strong>Universidad Nacional de Hurlingham (UNAHUR)</strong>.
+                </p>
+            </div>
+
+            <div class="text-[11px] text-brand-brownLight text-center md:text-right">
+                <p>Agenda Cultural Buenos Aires</p>
+                <p class="opacity-75">Cartelera actualizada automáticamente con IA</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- LÓGICA JAVASCRIPT -->
+    <script>
+        const localidadesData = [
+            { nombre: "Adrogué", zona: "Zona Sur" },
+            { nombre: "Almagro", zona: "CABA" },
+            { nombre: "Avellaneda", zona: "Zona Sur" },
+            { nombre: "Banfield", zona: "Zona Sur" },
+            { nombre: "Belgrano", zona: "CABA" },
+            { nombre: "Berazategui", zona: "Zona Sur" },
+            { nombre: "Caballito", zona: "CABA" },
+            { nombre: "Caseros", zona: "Zona Oeste" },
+            { nombre: "Castelar", zona: "Zona Oeste" },
+            { nombre: "Chascomús", zona: "Zona Sur" },
+            { nombre: "Ciudadela", zona: "Zona Oeste" },
+            { nombre: "El Palomar", zona: "Zona Oeste" },
+            { nombre: "Escobar", zona: "Zona Norte" },
+            { nombre: "Ezeiza", zona: "Zona Sur" },
+            { nombre: "Florencio Varela", zona: "Zona Sur" },
+            { nombre: "General Las Heras", zona: "Zona Oeste" },
+            { nombre: "Haedo", zona: "Zona Oeste" },
+            { nombre: "Hurlingham", zona: "Zona Oeste" },
+            { nombre: "Ituzaingó", zona: "Zona Oeste" },
+            { nombre: "José C. Paz", zona: "Zona Norte" },
+            { nombre: "La Matanza", zona: "Zona Oeste" },
+            { nombre: "La Plata", zona: "Zona Sur" },
+            { nombre: "Lanús", zona: "Zona Sur" },
+            { nombre: "Lomas de Zamora", zona: "Zona Sur" },
+            { nombre: "Luján", zona: "Zona Oeste" },
+            { nombre: "Malvinas Argentinas", zona: "Zona Norte" },
+            { nombre: "Martínez", zona: "Zona Norte" },
+            { nombre: "Mercedes", zona: "Zona Oeste" },
+            { nombre: "Merlo", zona: "Zona Oeste" },
+            { nombre: "Monte Grande", zona: "Zona Sur" },
+            { nombre: "Moreno", zona: "Zona Oeste" },
+            { nombre: "Morón", zona: "Zona Oeste" },
+            { nombre: "Olivos", zona: "Zona Norte" },
+            { nombre: "Palacio Libertad", zona: "CABA" },
+            { nombre: "Palermo", zona: "CABA" },
+            { nombre: "Pilar", zona: "Zona Norte" },
+            { nombre: "Puan", zona: "Zona Sur" },
+            { nombre: "Quilmes", zona: "Zona Sur" },
+            { nombre: "Ramos Mejía", zona: "Zona Oeste" },
+            { nombre: "Recoleta", zona: "CABA" },
+            { nombre: "San Fernando", zona: "Zona Norte" },
+            { nombre: "San Isidro", zona: "Zona Norte" },
+            { nombre: "San Justo", zona: "Zona Oeste" },
+            { nombre: "San Martín", zona: "Zona Norte" },
+            { nombre: "San Miguel", zona: "Zona Norte" },
+            { nombre: "San Nicolás", zona: "CABA" },
+            { nombre: "San Telmo", zona: "CABA" },
+            { nombre: "Tandil", zona: "Zona Sur" },
+            { nombre: "Tigre", zona: "Zona Norte" },
+            { nombre: "Tres de Febrero", zona: "Zona Oeste" },
+            { nombre: "Vicente López", zona: "Zona Norte" },
+            { nombre: "Villa Ballester", zona: "Zona Norte" },
+            { nombre: "Villa Crespo", zona: "CABA" },
+            { nombre: "Villa Tesei", zona: "Zona Oeste" }
+        ];
+
+        let eventos = [];
+
+        function getUltimaFechaEvento(evento) {
+            if (evento.fechaFin) return evento.fechaFin;
+            if (evento.fechaTexto) {
+                const textoLower = evento.fechaTexto.toLowerCase();
+                if (textoLower.includes("vigente") || textoLower.includes("consultar funciones") || textoLower.includes("sábados, domingos")) {
+                    return "2099-12-31";
+                }
+                const mesesMap = {
+                    enero: "01", febrero: "02", marzo: "03", abril: "04",
+                    mayo: "05", junio: "06", julio: "07", agosto: "08",
+                    septiembre: "09", setiembre: "09", octubre: "10", noviembre: "11", diciembre: "12"
+                };
+                const yearBase = (evento.fecha || "2026-01-01").slice(0, 4);
+                const coincidencias = [...textoLower.matchAll(/(\d{1,2})\s*(?:de\s*)?(enero|febrero|marzo|abril|mayo|junio|julio|agosto|septiembre|setiembre|octubre|noviembre|diciembre)(?:\s*(?:de\s*)?(\d{4}))?/g)];
+                if (coincidencias.length > 0) {
+                    const ultima = coincidencias[coincidencias.length - 1];
+                    const dia = ultima[1].padStart(2, "0");
+                    const mes = mesesMap[ultima[2]];
+                    const anio = ultima[3] || yearBase;
+                    return `${anio}-${mes}-${dia}`;
+                }
+            }
+            return evento.fecha;
+        }
+
+        function getGoogleMapsUrl(evento) {
+            let lugarLimpio = evento.lugar || "";
+            const matchParentesis = lugarLimpio.match(/\(([^)]+\d+[^)]*)\)/);
+            if (matchParentesis) {
+                lugarLimpio = matchParentesis[1];
+            } else if (lugarLimpio.includes(",")) {
+                lugarLimpio = lugarLimpio.split(",")[0].trim();
+            }
+            const incluyeLocalidad = lugarLimpio.toLowerCase().includes(evento.localidad.toLowerCase());
+            const region = evento.zona === "CABA" ? "CABA, Argentina" : "Provincia de Buenos Aires, Argentina";
+            const ubicacionFinal = incluyeLocalidad
+                ? `${lugarLimpio}, ${region}`
+                : `${lugarLimpio}, ${evento.localidad}, ${region}`;
+            return `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(ubicacionFinal)}`;
+        }
+
+        function requiresTicket(evento) {
+            if (!evento || !evento.precio) return false;
+            const precioNorm = evento.precio.toLowerCase().trim();
+            return !precioNorm.includes("gratuito") &&
+                   !precioNorm.includes("entrada libre") &&
+                   !precioNorm.includes("consumición");
+        }
+
+        function requiresPriorReservation(evento) {
+            if (!evento) return false;
+            if (evento.reservaPrevia === true) return true;
+            const precioNorm = (evento.precio || "").toLowerCase();
+            return precioNorm.includes("gratuito") && precioNorm.includes("reserva");
+        }
+
+        function getReservationUrl(evento) {
+            return (evento && evento.urlReserva) ? evento.urlReserva : "#eventos";
+        }
+
+        function formatFecha(evento) {
+            if (typeof evento === "object" && evento !== null && evento.fechaTexto) {
+                return evento.fechaTexto;
+            }
+            const fechaISO = typeof evento === "string" ? evento : evento.fecha;
+            const meses = ["Ene", "Feb", "Mar", "Abr", "May", "Jun", "Jul", "Ago", "Sep", "Oct", "Nov", "Dic"];
+            const [year, month, day] = fechaISO.split("-");
+            return `${parseInt(day, 10)} ${meses[parseInt(month, 10) - 1]} ${year}`;
+        }
+
+        function getCategoryBadgeStyle(categoria) {
+            const styles = {
+                "Gourmet": "bg-brand-softYellow text-brand-brown border border-brand-sand",
+                "Entretenimiento": "bg-brand-pastelBlue/50 text-brand-brown border border-brand-pastelBlue",
+                "Música y Recitales": "bg-brand-softPink text-brand-brown border border-brand-sand",
+                "Ferias y Artesanías": "bg-brand-softGreen text-brand-brown border border-brand-sand",
+                "Arte y Cultura": "bg-brand-beigeCard text-brand-brown border border-brand-brown/30"
+            };
+            return styles[categoria] || "bg-brand-softPink text-brand-brown";
+        }
+
+        function getCategoryIcon(categoria) {
+            const icons = {
+                "Gourmet": "fa-utensils",
+                "Entretenimiento": "fa-masks-theater",
+                "Música y Recitales": "fa-music",
+                "Ferias y Artesanías": "fa-store",
+                "Arte y Cultura": "fa-palette"
+            };
+            return icons[categoria] || "fa-calendar-star";
+        }
+
+        function populateLocalidades(zonaFiltro) {
+            const select = document.getElementById("localidadSelect");
+            if (!select) return;
+            const currentVal = select.value;
+            let lista = localidadesData.slice();
+            if (zonaFiltro) {
+                lista = lista.filter(loc => loc.zona === zonaFiltro);
+            }
+            lista.sort((a, b) => a.nombre.localeCompare(b.nombre, 'es'));
+            select.innerHTML = `<option value="">Todas las localidades (A-Z)</option>`;
+            lista.forEach(loc => {
+                const option = document.createElement("option");
+                option.value = loc.nombre;
+                option.textContent = loc.nombre;
+                select.appendChild(option);
+            });
+            if (lista.some(l => l.nombre === currentVal)) {
+                select.value = currentVal;
+            }
+        }
+
+        function populateCategorias() {
+            const select = document.getElementById("categorySelect");
+            if (!select) return;
+            select.innerHTML = `<option value="todas">Todas las Categorías</option>`;
+            const categoriasUnicas = Array.from(new Set(eventos.map(e => e.categoria))).sort((a, b) => a.localeCompare(b, 'es'));
+            categoriasUnicas.forEach(cat => {
+                const option = document.createElement("option");
+                option.value = cat;
+                option.textContent = cat;
+                select.appendChild(option);
+            });
+        }
+
+        function renderFeaturedCard() {
+            const container = document.getElementById("featuredCard");
+            if (!container || eventos.length === 0) return;
+            const proximo = eventos[0];
+            const botonComprarDestacado = (requiresTicket(proximo) && proximo.urlCompra) ? `
+                <a href="${proximo.urlCompra}" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-1.5 bg-brand-pastelBlue text-brand-brown border border-brand-brown/25 px-3 py-1.5 rounded-full text-[11px] font-semibold hover:bg-brand-pastelBlueHover transition shadow-sm cursor-pointer">
+                    <i class="fa-solid fa-ticket"></i> Comprar entradas
+                </a>
+            ` : (requiresPriorReservation(proximo) ? `
+                <a href="${getReservationUrl(proximo)}" target="_blank" rel="noopener noreferrer"
+                   class="inline-flex items-center gap-1.5 bg-brand-softYellow text-brand-brown border border-brand-sand hover:bg-brand-sand/50 px-3 py-1.5 rounded-full text-[11px] font-semibold transition shadow-sm cursor-pointer">
+                    <i class="fa-regular fa-calendar-check"></i> Con reserva previa
+                </a>
+            ` : "");
+
+            container.innerHTML = `
+                <div class="flex justify-between items-start gap-2">
+                    <span class="text-[11px] uppercase font-bold tracking-widest text-brand-brownLight">
+                        <i class="fa-solid ${getCategoryIcon(proximo.categoria)} mr-1"></i> ${proximo.categoria}
+                    </span>
+                    <span class="bg-brand-softPink text-brand-brown text-[11px] font-bold px-2.5 py-0.5 rounded-full">
+                        ${proximo.zona}
+                    </span>
+                </div>
+                <h3 class="font-serif text-2xl font-bold text-brand-brown leading-snug">${proximo.titulo}</h3>
+                <div>
+                    <p id="featuredDesc" class="text-xs text-brand-brownLight line-clamp-2 leading-relaxed">${proximo.descripcion}</p>
+                    ${proximo.descripcion && proximo.descripcion.length > 110 ? `
+                    <button type="button" id="featuredDescToggle" onclick="toggleFeaturedDesc()" class="mt-1 text-[11px] font-semibold text-brand-brown underline underline-offset-2 hover:text-brand-brownLight transition cursor-pointer">
+                        Ver más
+                    </button>
+                    ` : ''}
+                </div>
+                <p class="text-[11px] text-brand-brown font-medium">
+                    <i class="fa-solid fa-user-tie text-brand-brownLight mr-1"></i> Organiza: <span class="font-semibold">${proximo.organizador}</span>
+                </p>
+                <div class="pt-3 border-t border-brand-sand/40 flex flex-wrap justify-between items-start gap-2 text-xs text-brand-brown font-medium">
+                    <span class="pt-1"><i class="fa-regular fa-calendar mr-1"></i> ${formatFecha(proximo)} · ${proximo.hora}</span>
+                    <div class="flex flex-col items-end gap-2">
+                        <a href="${getGoogleMapsUrl(proximo)}" target="_blank" rel="noopener noreferrer" 
+                           class="inline-flex items-center gap-1.5 bg-brand-brown text-brand-cream px-3 py-1.5 rounded-full text-[11px] font-semibold hover:bg-brand-brownLight transition shadow-sm">
+                            <i class="fa-solid fa-map-location-dot"></i> Cómo llegar
+                        </a>
+                        ${botonComprarDestacado}
+                    </div>
+                </div>
+            `;
+        }
+
+        function toggleFeaturedDesc() {
+            const descEl = document.getElementById("featuredDesc");
+            const btnEl = document.getElementById("featuredDescToggle");
+            if (!descEl || !btnEl) return;
+            const isClamped = descEl.classList.contains("line-clamp-2");
+            if (isClamped) {
+                descEl.classList.remove("line-clamp-2");
+                btnEl.textContent = "Ver menos";
+            } else {
+                descEl.classList.add("line-clamp-2");
+                btnEl.textContent = "Ver más";
+            }
+        }
+
+        function renderEvents(lista) {
+            const grid = document.getElementById("eventsGrid");
+            const emptyState = document.getElementById("emptyState");
+            if (!grid || !emptyState) return;
+
+            if (lista.length === 0) {
+                grid.innerHTML = "";
+                emptyState.classList.remove("hidden");
+                return;
+            }
+
+            emptyState.classList.add("hidden");
+            grid.innerHTML = lista.map(evento => {
+                const botonComprar = (requiresTicket(evento) && evento.urlCompra) ? `
+                    <div class="flex justify-end">
+                        <a href="${evento.urlCompra}" target="_blank" rel="noopener noreferrer"
+                           class="inline-flex items-center gap-1.5 bg-brand-pastelBlue text-brand-brown border border-brand-brown/25 px-3.5 py-1.5 rounded-full text-[11px] font-semibold hover:bg-brand-pastelBlueHover transition shadow-sm cursor-pointer">
+                            <i class="fa-solid fa-ticket"></i> Comprar entradas
+                        </a>
+                    </div>
+                ` : (requiresPriorReservation(evento) ? `
+                    <div class="flex justify-end">
+                        <a href="${getReservationUrl(evento)}" target="_blank" rel="noopener noreferrer"
+                           class="inline-flex items-center gap-1.5 bg-brand-softYellow text-brand-brown border border-brand-sand hover:bg-brand-sand/50 px-3.5 py-1.5 rounded-full text-[11px] font-semibold transition shadow-sm cursor-pointer">
+                            <i class="fa-regular fa-calendar-check"></i> Con reserva previa
+                        </a>
+                    </div>
+                ` : "");
+
+                return `
+                <article class="folder-card bg-brand-cream rounded-2xl p-6 border border-brand-sand/60 shadow-sm flex flex-col justify-between">
+                    <div>
+                        <div class="flex items-center justify-between gap-2 mb-3">
+                            <span class="text-[11px] font-semibold px-3 py-1 rounded-full ${getCategoryBadgeStyle(evento.categoria)}">
+                                <i class="fa-solid ${getCategoryIcon(evento.categoria)} mr-1"></i> ${evento.categoria}
+                            </span>
+                            <span class="text-[11px] font-bold uppercase tracking-wider text-brand-brownLight">
+                                ${evento.zona}
+                            </span>
+                        </div>
+
+                        <h3 class="font-serif text-xl font-bold text-brand-brown mb-2 leading-snug">
+                            ${evento.titulo}
+                        </h3>
+
+                        <p class="text-xs text-brand-brownLight leading-relaxed mb-3">
+                            ${evento.descripcion}
+                        </p>
+
+                        <div class="bg-brand-beigeCard/60 px-3 py-2 rounded-xl border border-brand-sand/30 mb-4">
+                            <p class="text-[11px] text-brand-brown">
+                                <i class="fa-solid fa-users-gear text-brand-brownLight mr-1.5"></i>
+                                <span class="font-medium">Organiza:</span> <strong>${evento.organizador}</strong>
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-brand-sand/40 space-y-2.5 text-xs text-brand-brown">
+                        <div class="flex items-center justify-between gap-2">
+                            <span class="font-semibold"><i class="fa-regular fa-calendar text-brand-brownLight mr-1.5"></i>${formatFecha(evento)}</span>
+                            <span class="text-brand-brownLight text-right">${evento.hora}</span>
+                        </div>
+                        <div class="flex items-start justify-between gap-2">
+                            <span><i class="fa-solid fa-location-dot text-brand-brownLight mr-1.5"></i><strong>${evento.localidad}</strong> · ${evento.lugar}</span>
+                        </div>
+                        <div class="pt-1.5 space-y-2">
+                            <div class="flex justify-between items-center gap-2">
+                                <span class="inline-block bg-brand-beigeCard px-2.5 py-1 rounded-md text-[11px] font-medium text-brand-brown">
+                                    ${evento.precio}
+                                </span>
+                                <a href="${getGoogleMapsUrl(evento)}" target="_blank" rel="noopener noreferrer" 
+                                   title="Abrir ubicación exacta en Google Maps"
+                                   class="inline-flex items-center gap-1.5 bg-brand-brown text-brand-cream px-3.5 py-1.5 rounded-full text-[11px] font-semibold hover:bg-brand-brownLight transition shadow-sm">
+                                    <i class="fa-solid fa-map-location-dot"></i> Cómo llegar
+                                </a>
+                            </div>
+                            ${botonComprar}
+                        </div>
+                    </div>
+                </article>
+            `}).join("");
+        }
+
+        function onZonaChange() {
+            const zona = document.getElementById("zonaSelect").value;
+            populateLocalidades(zona);
+            filterEvents();
+        }
+
+        function selectZonaFromMarquee(zona) {
+            const zonaSelect = document.getElementById("zonaSelect");
+            if (!zonaSelect) return;
+            document.getElementById("searchInput").value = "";
+            document.getElementById("categorySelect").value = "todas";
+            zonaSelect.value = zona;
+            populateLocalidades(zona);
+            document.getElementById("localidadSelect").value = "";
+            filterEvents();
+            const eventosSection = document.getElementById("eventos");
+            if (eventosSection) {
+                eventosSection.scrollIntoView({ behavior: "smooth" });
+            }
+        }
+
+        function filterEvents() {
+            const search = document.getElementById("searchInput").value.toLowerCase().trim();
+            const zona = document.getElementById("zonaSelect").value;
+            const localidad = document.getElementById("localidadSelect").value;
+            const categoria = document.getElementById("categorySelect").value;
+
+            const filtrados = eventos.filter(ev => {
+                const matchSearch = !search || 
+                    ev.titulo.toLowerCase().includes(search) || 
+                    ev.lugar.toLowerCase().includes(search) || 
+                    ev.localidad.toLowerCase().includes(search) ||
+                    ev.organizador.toLowerCase().includes(search) ||
+                    ev.descripcion.toLowerCase().includes(search);
+
+                const matchZona = !zona || ev.zona === zona;
+                const matchLocalidad = !localidad || ev.localidad === localidad;
+                const matchCategoria = categoria === "todas" || ev.categoria === categoria;
+
+                return matchSearch && matchZona && matchLocalidad && matchCategoria;
+            });
+
+            renderEvents(filtrados);
+        }
+
+        function resetFilters() {
+            document.getElementById("searchInput").value = "";
+            document.getElementById("zonaSelect").value = "";
+            populateLocalidades("");
+            document.getElementById("localidadSelect").value = "";
+            document.getElementById("categorySelect").value = "todas";
+            renderEvents(eventos);
+        }
+
+        async function initApp() {
+            try {
+                const respuesta = await fetch("eventos.json?t=" + new Date().getTime());
+                if (!respuesta.ok) throw new Error("No se pudo cargar eventos.json");
+
+                const todosLosEventos = await respuesta.json();
+
+                const hoyObj = new Date();
+                const yyyy = hoyObj.getFullYear();
+                const mm = String(hoyObj.getMonth() + 1).padStart(2, '0');
+                const dd = String(hoyObj.getDate()).padStart(2, '0');
+                const fechaHoy = `${yyyy}-${mm}-${dd}`;
+
+                eventos = todosLosEventos.filter(ev => {
+                    if (getUltimaFechaEvento(ev) < fechaHoy) return false;
+                    const lugarNorm = (ev.lugar || "").toLowerCase();
+                    if (lugarNorm.includes("monumental") || lugarNorm.includes("river plate")) return false;
+                    if (requiresTicket(ev) && !ev.urlCompra) return false;
+                    return true;
+                });
+
+                eventos.sort((a, b) => new Date(a.fecha + 'T00:00:00') - new Date(b.fecha + 'T00:00:00'));
+
+                populateLocalidades("");
+                populateCategorias();
+                renderFeaturedCard();
+                renderEvents(eventos);
+            } catch (error) {
+                console.error("Error al cargar la cartelera:", error);
+                document.getElementById("eventsGrid").innerHTML = `
+                    <div class="col-span-full text-center py-10 text-brand-brown bg-brand-beigeCard rounded-2xl p-6">
+                        <p class="font-bold">No se pudieron cargar los eventos desde eventos.json</p>
+                        <p class="text-xs mt-1">Verificá que eventos.json esté en la misma carpeta.</p>
+                    </div>
+                `;
+            }
+        }
+
+        if (document.readyState === "loading") {
+            document.addEventListener("DOMContentLoaded", initApp);
+        } else {
+            initApp();
+        }
+    </script>
+</body>
+</html>

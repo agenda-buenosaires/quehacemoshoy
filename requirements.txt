@@ -1,0 +1,6 @@
+apify-client
+google-genai
+pydantic
+requests
+beautifulsoup4
+pillow
