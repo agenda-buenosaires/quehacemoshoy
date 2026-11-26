@@ -1,0 +1,42 @@
+name: Actualizar Agenda Cultural
+
+on:
+  schedule:
+    - cron: '0 13 * * *'
+  workflow_dispatch:
+
+jobs:
+  actualizar:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Descargar repositorio
+        uses: actions/checkout@v4
+
+      - name: Configurar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+          cache: 'pip'
+
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+
+      - name: Ejecutar extractor de eventos
+        env:
+          GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
+          APIFY_API_TOKEN: ${{ secrets.APIFY_API_TOKEN }}
+        run: python extractor_unificado.py
+
+      - name: Guardar cambios en eventos.json
+        run: |
+          git config --local user.email "bot@github.com"
+          git config --local user.name "Agenda Bot"
+          git add eventos.json
+          if git diff --cached --quiet; then
+            echo "Sin cambios nuevos en eventos.json"
+          else
+            git commit -m "Actualizar agenda cultural ($(date -u +'%Y-%m-%d'))"
+            git push
+          fi
